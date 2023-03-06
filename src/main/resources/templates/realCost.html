@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>本当の費用</title>
+	</head>
+	<body>
+		<script th:src="@{/js/index.js}"></script>
+        <form th:action="@{/realCost}" th:object="${realCostRequest}" th:method="post">
+            <div class="form-group">
+                <br>
+                <label for="cost">月額費用</label>
+                <input type="text" th:field="*{cost}" onblur="removeComma(this);">円
+                <br>
+                <label for="period">支払年数</label>
+                <input type="number" class="w-50 form-control" th:field="*{period}">年
+            </div>
+            <button type="submit" class="btn btn-primary">計算</button>
+        </form>
+		<br>
+        <div th:if="${result}">
+        	<p th:text="'総費用は'+${#numbers.formatInteger(result, 3, 'COMMA')}+ '円です。'"></p>
+        </div>
+		<br>
+        <div>
+            <a th:href="@{/index}">一覧画面</a>
+        </div>
+	</body>
+</html>
